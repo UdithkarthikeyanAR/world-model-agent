@@ -61,27 +61,129 @@ class Scenario:
 
 def kitchen_demo() -> Scenario:
     """
-    Simple demo world used during evaluation.
+    Expanded demo world.
+
+    Commit 1:
+    - Multiple connected rooms
+    - World graph
+    - Existing API preserved
+
+    Future commits will add:
+    - More items
+    - Containers
+    - Doors
+    - Locks
+    - Keys
     """
 
     rooms = {
 
+        # --------------------------------------------------
+        # Kitchen
+        # --------------------------------------------------
+
         "kitchen": Room(
-            name="kitchen",
+            name="Kitchen",
             description="A clean kitchen with a wooden table.",
             exits={
                 "south": "hallway",
             },
         ),
 
+        # --------------------------------------------------
+        # Hallway
+        # --------------------------------------------------
+
         "hallway": Room(
             name="Hallway",
-            description="A narrow hallway.",
+            description="A hallway connecting several rooms.",
             exits={
                 "north": "kitchen",
+                "east": "living_room",
+                "west": "bedroom",
+                "south": "study",
+            },
+        ),
+
+        # --------------------------------------------------
+        # Living Room
+        # --------------------------------------------------
+
+        "living_room": Room(
+            name="Living Room",
+            description="A comfortable living room with a sofa.",
+            exits={
+                "west": "hallway",
+                "east": "garage",
+            },
+        ),
+
+        # --------------------------------------------------
+        # Garage
+        # --------------------------------------------------
+
+        "garage": Room(
+            name="Garage",
+            description="A dusty garage with old tools.",
+            exits={
+                "west": "living_room",
+                "east": "storage",
+            },
+        ),
+
+        # --------------------------------------------------
+        # Storage
+        # --------------------------------------------------
+
+        "storage": Room(
+            name="Storage Room",
+            description="A cluttered storage room.",
+            exits={
+                "west": "garage",
+            },
+        ),
+
+        # --------------------------------------------------
+        # Bedroom
+        # --------------------------------------------------
+
+        "bedroom": Room(
+            name="Bedroom",
+            description="A quiet bedroom with a neatly made bed.",
+            exits={
+                "east": "hallway",
+                "south": "bathroom",
+            },
+        ),
+
+        # --------------------------------------------------
+        # Bathroom
+        # --------------------------------------------------
+
+        "bathroom": Room(
+            name="Bathroom",
+            description="A small bathroom.",
+            exits={
+                "north": "bedroom",
+            },
+        ),
+
+        # --------------------------------------------------
+        # Study
+        # --------------------------------------------------
+
+        "study": Room(
+            name="Study",
+            description="A peaceful study filled with books.",
+            exits={
+                "north": "hallway",
             },
         ),
     }
+
+    # ------------------------------------------------------
+    # Items (Commit 1 - keep minimal)
+    # ------------------------------------------------------
 
     items = [
 
@@ -92,6 +194,10 @@ def kitchen_demo() -> Scenario:
 
     ]
 
+    # ------------------------------------------------------
+    # Doors (Commit 1 - keep existing)
+    # ------------------------------------------------------
+
     doors = [
 
         Door(
@@ -101,6 +207,10 @@ def kitchen_demo() -> Scenario:
         ),
 
     ]
+
+    # ------------------------------------------------------
+    # Containers (Commit 1 - keep existing)
+    # ------------------------------------------------------
 
     containers = [
 

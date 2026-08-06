@@ -30,11 +30,16 @@ class WorldRenderer:
             f"You are in the {room.name.lower()}."
         )
 
+        lines.append(
+            room.description
+        )
+
         # --------------------------------------------------
         # Items
         # --------------------------------------------------
 
         for item in world.room_items():
+
             lines.append(
                 f"A {item.name.lower()} is on the wooden table."
             )
@@ -67,11 +72,10 @@ class WorldRenderer:
         # Exits
         # --------------------------------------------------
 
-        exits = ", ".join(
-            room.exits.keys()
-        )
+        if room.exits:
 
-        if exits:
+            exits = ", ".join(room.exits.keys())
+
             lines.append(
                 f"Exits: {exits}."
             )
