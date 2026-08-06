@@ -18,13 +18,7 @@ from __future__ import annotations
 
 from typing import Iterable
 
-from contracts.schema import (
-    UpdateEvent,
-    Entity,
-    Relation,
-    Property,
-    PlayerState,
-)
+from contracts.schema import UpdateEvent
 
 from worldmodel.store import WorldStore
 
@@ -171,18 +165,8 @@ class WorldUpdater:
 
         if player is None:
             return
-
         self.store.update_player_state(player)
-    
-    def clear(self) -> None:
-        """
-        Reset the entire world model.
-        """
-
-        self.store.clear_world()
-class WorldUpdater:
-
-    ...
+            
 
     def clear(self) -> None:
         """
