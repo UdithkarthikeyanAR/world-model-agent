@@ -17,6 +17,7 @@ This module should NOT contain:
 
 from contracts.schema import (
     Entity,
+    EntityType,
     Relation,
     RelationType,
     Property,
@@ -214,7 +215,7 @@ class WorldStore:
         return Entity(
             id=row["id"],
             name=row["name"],
-            entity_type=row["entity_type"],
+            entity_type=EntityType(row["entity_type"]),
         )
 
 
@@ -245,7 +246,7 @@ class WorldStore:
         return Entity(
             id=row["id"],
             name=row["name"],
-            entity_type=row["entity_type"],
+            entity_type=EntityType(row["entity_type"]),
         )
 
 
@@ -336,10 +337,10 @@ class WorldStore:
             Entity(
                 id=row["id"],
                 name=row["name"],
-                entity_type=row["entity_type"],
+                entity_type=EntityType(row["entity_type"]),
             )
             for row in rows
-        ]
+]
 
 
     def count_entities(self) -> int:
