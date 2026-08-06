@@ -1,43 +1,66 @@
 """
 decision/model_client.py
 
-Interface to the local language model.
-
-Currently this file contains a placeholder implementation.
-It can later be connected to Ollama + Qwen 2.5 without
-changing the rest of the project.
+Local LLM client using Ollama.
 """
 
 from __future__ import annotations
 
-from decision.planner import PlannedAction
+
+
+import ollama
 
 
 class ModelClient:
     """
-    Wrapper around the language model.
+    Uses a local Qwen model to choose one action from a list.
     """
 
-    def select_action(
+    def choose_action(
         self,
-        actions: list[PlannedAction],
-    ) -> PlannedAction | None:
-        """
-        Ask the language model to select the best action.
+        observation: str,
+        candidate_actions: list[str],
+    ) -> str:
 
-        Placeholder implementation.
-        """
+        prompt = f"""
+You are an intelligent agent playing a text adventure.
 
-        if not actions:
-            return None
+Observation:
 
-        # TODO:
-        # Replace this with an Ollama call.
-        #
-        # Example:
-        #
-        # prompt = ...
-        # response = ollama.chat(...)
-        # return parsed_action
+{observation}
 
-        return actions[0]
+Available actions:
+
+{chr(10).join("- " + a for a in candidate_actions)}
+
+Rules:
+- Choose ONLY ONE action from the list.
+- Do NOT invent new actions.
+- Return ONLY the exact action text.
+"""
+
+        response = ollama.chat(
+            model="qwen2.5:3b",
+            messages=[
+                {
+                    "role": "system",
+                    "content": (
+                        "You are a decision-making AI for a text world."
+                    ),
+                },
+                {
+                    "role": "user",
+                    "content": prompt,
+                },
+            ],
+        )
+
+        answer = response["message"]["content"].strip()
+
+        # Make sure we always return a valid action
+        for action in candidate_actions:
+            if action.lower() in answer.lower():
+                return action
+
+        # Safe fallback
+        return candidate_actions[0]
