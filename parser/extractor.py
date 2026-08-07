@@ -11,7 +11,9 @@ inda module NEVER:
 - creates World Model entities
 """
 
+
 from __future__ import annotations
+from re import match
 
 import re
 
@@ -55,7 +57,7 @@ class ObservationExtractor:
 
             case _:
                 pass
-
+        self._extract_item(segment, observation)
         return observation
 
     # ======================================================
@@ -78,6 +80,7 @@ class ObservationExtractor:
             return
 
         room = match.group(1).strip()
+        observation.metadata["current_room"] = room.lower()
 
         observation.entities.append(
             ParsedEntity(
@@ -194,9 +197,21 @@ class ObservationExtractor:
 
             entity = match.group(1).strip()
 
+            entity_name = entity.lower()
+
+            entity_type = EntityType.UNKNOWN
+
+            if "door" in entity_name:
+                entity_type = EntityType.DOOR
+            elif "refrigerator" in entity_name:
+                entity_type = EntityType.CONTAINER
+            elif "cabinet" in entity_name:
+                entity_type = EntityType.CONTAINER
+
             observation.entities.append(
                 ParsedEntity(
                     name=entity,
+                    entity_type=entity_type,
                 )
             )
 
@@ -209,3 +224,27 @@ class ObservationExtractor:
             )
 
             return
+
+    def _extract_item(
+        self,
+        segment: str,
+        observation: ParsedObservation,
+    ) -> None:
+
+        match = re.search(
+            r"(?:a|an)\s+(.+?)\s+is here[.]?$",
+            segment,
+            re.IGNORECASE,
+        )
+
+        if not match:
+            return
+
+        item = match.group(1).strip()
+
+        observation.entities.append(
+            ParsedEntity(
+                name=item,
+                entity_type=EntityType.ITEM,
+            )
+        )

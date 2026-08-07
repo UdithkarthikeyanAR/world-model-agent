@@ -58,6 +58,24 @@ class World:
             for item in self.scenario.items
             if item.location == self.player_room
         ]
+    
+    def container_items(
+        self,
+        container_name: str,
+    ) -> list:
+        """
+        Return all items stored inside a container.
+        """
+
+        return [
+
+            item
+
+            for item in self.scenario.items
+
+            if item.location.lower() == container_name.lower()
+
+        ]
 
     # ---------------------------------------------------------
     # Doors

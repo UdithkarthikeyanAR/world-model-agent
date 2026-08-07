@@ -24,8 +24,18 @@ class Room:
 
 @dataclass(slots=True)
 class Item:
+    """
+    Represents a movable object in the environment.
+    """
+
     name: str
+
+    # Room name or "inventory"
     location: str
+
+    description: str
+
+    portable: bool = True
 
 
 @dataclass(slots=True)
@@ -37,9 +47,19 @@ class Door:
 
 @dataclass(slots=True)
 class Container:
+    """
+    A container that can hold items.
+    """
+
     name: str
+
     room: str
+
     opened: bool = False
+
+    description: str = ""
+
+    contains: list[str] = field(default_factory=list)
 
 
 # ==========================================================
@@ -187,12 +207,66 @@ def kitchen_demo() -> Scenario:
 
     items = [
 
-        Item(
-            name="Silver Key",
-            location="kitchen",
-        ),
+    Item(
+        name="Silver Key",
+        location="kitchen",
+        description="A small silver key.",
+    ),
 
-    ]
+    Item(
+        name="Cup",
+        location="cabinet",
+        description="A ceramic coffee cup.",
+    ),
+
+    Item(
+        name="Book",
+        location="living_room",
+        description="An old mystery novel.",
+    ),
+
+    Item(
+        name="Remote",
+        location="living_room",
+        description="A TV remote.",
+    ),
+
+    Item(
+        name="Laptop",
+        location="desk drawer",
+        description="A modern laptop.",
+    ),
+
+    Item(
+        name="Backpack",
+        location="closet",
+        description="A black backpack.",
+    ),
+
+    Item(
+        name="Flashlight",
+        location="tool chest",
+        description="A bright flashlight.",
+    ),
+
+    Item(
+        name="Toolbox",
+        location="garage",
+        description="A heavy toolbox.",
+    ),
+
+    Item(
+        name="Golden Key",
+        location="storage",
+        description="A shiny golden key.",
+    ),
+
+    Item(
+        name="First Aid Kit",
+        location="storage",
+        description="A medical kit.",
+    ),
+]
 
     # ------------------------------------------------------
     # Doors (Commit 1 - keep existing)
@@ -214,13 +288,46 @@ def kitchen_demo() -> Scenario:
 
     containers = [
 
-        Container(
-            name="Refrigerator",
-            room="kitchen",
-            opened=False,
-        ),
+    Container(
+        name="Refrigerator",
+        room="kitchen",
+        opened=False,
+        description="A large refrigerator.",
+        contains=["Bottle"],
+    ),
 
-    ]
+    Container(
+        name="Cabinet",
+        room="kitchen",
+        opened=False,
+        description="A wooden cabinet.",
+        contains=["Cup"],
+    ),
+
+    Container(
+        name="Closet",
+        room="bedroom",
+        opened=False,
+        description="A bedroom closet.",
+        contains=["Backpack"],
+    ),
+
+    Container(
+        name="Desk Drawer",
+        room="study",
+        opened=False,
+        description="A wooden desk drawer.",
+        contains=["Laptop"],
+    ),
+
+    Container(
+        name="Tool Chest",
+        room="garage",
+        opened=False,
+        description="A large tool chest.",
+        contains=["Flashlight"],
+    ),
+]
 
     return Scenario(
         rooms=rooms,

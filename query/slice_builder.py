@@ -34,6 +34,7 @@ class WorldSlice:
     properties: list[Property]
 
 
+
 class SliceBuilder:
     """
     Extracts a relevant subset of the WorldState.

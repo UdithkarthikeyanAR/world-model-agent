@@ -41,7 +41,7 @@ class WorldRenderer:
         for item in world.room_items():
 
             lines.append(
-                f"A {item.name.lower()} is on the wooden table."
+                f"A {item.name.lower()} is here."
             )
 
         # --------------------------------------------------
@@ -55,6 +55,16 @@ class WorldRenderer:
             lines.append(
                 f"The {container.name.lower()} is {state}."
             )
+
+            if container.opened:
+
+                for item in world.container_items(
+                    container.name
+                ):
+
+                    lines.append(
+                        f"Inside the {container.name.lower()} is a {item.name.lower()}."
+                    )
 
         # --------------------------------------------------
         # Doors
@@ -78,6 +88,18 @@ class WorldRenderer:
 
             lines.append(
                 f"Exits: {exits}."
+            )
+
+        # --------------------------------------------------
+        # Inventory
+        # --------------------------------------------------
+
+        if world.inventory:
+
+            inventory = ", ".join(world.inventory)
+
+            lines.append(
+                f"Inventory: {inventory}."
             )
 
         return "\n".join(lines)

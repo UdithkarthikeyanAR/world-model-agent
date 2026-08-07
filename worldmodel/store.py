@@ -22,6 +22,7 @@ from contracts.schema import (
     RelationType,
     Property,
     PlayerState,
+    WorldState,
 )
 import sqlite3
 from pathlib import Path
@@ -866,3 +867,28 @@ class WorldStore:
         """
 
         self.close()
+           
+    def get_world_state(self) -> WorldState:
+        """
+        Build and return the complete world state.
+        """
+
+        entities = self.list_entities()
+
+        relations = self.list_relations()
+
+        properties: list[Property] = []
+
+        for entity in entities:
+            properties.extend(
+                self.get_properties(entity.id)
+            )
+
+        player = self.get_player_state()
+
+        return WorldState(
+            entities=entities,
+            relations=relations,
+            properties=properties,
+            player=player,
+        ) 

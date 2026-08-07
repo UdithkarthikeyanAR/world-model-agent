@@ -4,13 +4,12 @@ environment/engine.py
 Runs the text world environment.
 
 This module connects:
-    World
-        ↓
-    Renderer
-        ↓
-    Actions
 
-Parser integration will be added later.
+World
+↓
+Renderer
+↓
+Actions
 """
 
 from __future__ import annotations
@@ -32,6 +31,8 @@ class EnvironmentEngine:
         self.actions = WorldActions()
 
     # ---------------------------------------------------------
+    # Observation
+    # ---------------------------------------------------------
 
     def observe(self) -> str:
         """
@@ -41,42 +42,89 @@ class EnvironmentEngine:
         return self.renderer.render(self.world)
 
     # ---------------------------------------------------------
+    # Reset
+    # ---------------------------------------------------------
+
+    def reset(self) -> None:
+        """
+        Reset the environment.
+        """
+
+        self.world = World()
+
+    # ---------------------------------------------------------
+    # Execute
+    # ---------------------------------------------------------
 
     def execute(self, action: str) -> bool:
         """
-        Execute a simple action.
+        Execute an action.
 
-        Supported actions:
-            take key
-            open refrigerator
-            unlock north door
-            move south
-            move north
+        Supported examples:
+
+        take silver key
+        drop silver key
+
+        open refrigerator
+        unlock north door
+
+        move north
+        move south
+        move east
+        move west
         """
 
         action = action.lower().strip()
 
-        if action == "take key":
+        # ---------------- Take ----------------
+
+        if action.startswith("take "):
+
+            item = action[5:]
+
             return self.actions.take_item(
                 self.world,
-                "Silver Key",
+                item,
             )
 
-        if action == "open refrigerator":
+        # ---------------- Drop ----------------
+
+        if action.startswith("drop "):
+
+            item = action[5:]
+
+            return self.actions.drop_item(
+                self.world,
+                item,
+            )
+
+        # ---------------- Open ----------------
+
+        if action.startswith("open "):
+
+            container = action[5:]
+
             return self.actions.open_container(
                 self.world,
-                "Refrigerator",
+                container,
             )
 
-        if action == "unlock north door":
+        # ---------------- Unlock ----------------
+
+        if action.startswith("unlock "):
+
+            door = action[7:]
+
             return self.actions.unlock_door(
                 self.world,
-                "North Door",
+                door,
             )
+
+        # ---------------- Move ----------------
 
         if action.startswith("move "):
 
-            direction = action.split(maxsplit=1)[1]
+            direction = action[5:]
 
             return self.actions.move(
                 self.world,

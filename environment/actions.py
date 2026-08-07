@@ -17,27 +17,70 @@ class WorldActions:
     Applies actions to the world.
     """
 
+    # ---------------------------------------------------------
+    # Items
+    # ---------------------------------------------------------
+
     def take_item(
         self,
         world: World,
         item_name: str,
     ) -> bool:
         """
-        Move an item from the room into the inventory.
+        Move a portable item from the room into the inventory.
         """
 
         for item in world.room_items():
 
-            if item.name.lower() == item_name.lower():
+            if item.name.lower() != item_name.lower():
+                continue
 
-                world.inventory.append(item.name)
+            # Cannot pick up this object
+            if not item.portable:
+                return False
 
-                item.location = "inventory"
+            # Already carrying it
+            if item.location == "inventory":
+                return False
 
-                return True
+            item.location = "inventory"
+
+            world.inventory.append(item.name)
+
+            return True
 
         return False
 
+    # ---------------------------------------------------------
+
+    def drop_item(
+        self,
+        world: World,
+        item_name: str,
+    ) -> bool:
+        """
+        Drop an inventory item into the current room.
+        """
+
+        for item in world.scenario.items:
+
+            if item.name.lower() != item_name.lower():
+                continue
+
+            if item.location != "inventory":
+                return False
+
+            item.location = world.player_room
+
+            if item.name in world.inventory:
+                world.inventory.remove(item.name)
+
+            return True
+
+        return False
+
+    # ---------------------------------------------------------
+    # Containers
     # ---------------------------------------------------------
 
     def open_container(
@@ -59,6 +102,8 @@ class WorldActions:
 
         return False
 
+    # ---------------------------------------------------------
+    # Doors
     # ---------------------------------------------------------
 
     def unlock_door(
@@ -83,6 +128,8 @@ class WorldActions:
 
         return False
 
+    # ---------------------------------------------------------
+    # Movement
     # ---------------------------------------------------------
 
     def move(
