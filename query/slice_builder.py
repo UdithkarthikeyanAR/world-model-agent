@@ -117,19 +117,38 @@ class SliceBuilder:
         room: Entity | None,
     ) -> list[Entity]:
         """
-        Return entities located inside the current room.
+        Return entities located inside the current room,
+        excluding anything already in the player's inventory.
         """
 
         if room is None:
             return []
 
+        inventory_ids = set()
+
+        if world.player is not None:
+            inventory_ids = set(world.player.inventory)
+
         visible = []
 
         for relation in world.relations:
-            if relation.target_id == room.id:
-                entity = self._find_entity(world, relation.source_id)
-                if entity:
-                    visible.append(entity)
+
+            if relation.target_id != room.id:
+                continue
+
+            entity = self._find_entity(
+                world,
+                relation.source_id,
+            )
+
+            if entity is None:
+                continue
+
+            # Skip inventory items
+            if entity.id in inventory_ids:
+                continue
+
+            visible.append(entity)
 
         return visible
 

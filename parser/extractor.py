@@ -55,9 +55,15 @@ class ObservationExtractor:
             case SegmentType.PROPERTY:
                 self._extract_property(segment, observation)
 
+            case SegmentType.INVENTORY:
+                self._extract_inventory(segment, observation)
+                self._extract_item(segment, observation)
+            
             case _:
                 pass
+            
         self._extract_item(segment, observation)
+
         return observation
 
     # ======================================================
@@ -79,7 +85,7 @@ class ObservationExtractor:
         if not match:
             return
 
-        room = match.group(1).strip()
+        room = match.group(1).strip().rstrip(".").lower()
         observation.metadata["current_room"] = room.lower()
 
         observation.entities.append(
@@ -240,7 +246,7 @@ class ObservationExtractor:
         if not match:
             return
 
-        item = match.group(1).strip()
+        item = match.group(1).strip().rstrip(".").lower()
 
         observation.entities.append(
             ParsedEntity(
@@ -248,3 +254,38 @@ class ObservationExtractor:
                 entity_type=EntityType.ITEM,
             )
         )
+    def _extract_inventory(
+        self,
+        segment: str,
+        observation: ParsedObservation,
+    ) -> None:
+
+        match = re.search(
+            r"Inventory:\s*(.+)[.]?$",
+            segment,
+            re.IGNORECASE,
+        )
+
+        if not match:
+            return
+
+        items = match.group(1)
+
+        for item in items.split(","):
+
+            item = item.strip().rstrip(".").lower()
+
+            if not item:
+                continue
+
+            observation.entities.append(
+            ParsedEntity(
+                name=item,
+                entity_type=EntityType.ITEM,
+            )
+        )
+
+        observation.metadata.setdefault(
+            "inventory",
+            []
+        ).append(item)

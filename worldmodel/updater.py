@@ -14,6 +14,7 @@ Responsibilities
 This module performs NO reasoning.
 """
 
+
 from __future__ import annotations
 
 from contracts.schema import (
@@ -22,8 +23,9 @@ from contracts.schema import (
     Property,
     PlayerState,
     EntityType,
+    RelationType,
 )
-
+from contracts.schema import RelationType
 from parser.models import ParsedObservation
 
 from worldmodel.store import WorldStore
@@ -188,12 +190,43 @@ class WorldUpdater:
         if room is None:
             return
 
+        inventory = []
+
+        for item_name in metadata.get("inventory", []):
+
+            entity = self.store.get_entity_by_name(item_name)
+
+            if entity is not None:
+                inventory.append(entity.id)
+
         state = PlayerState(
             player_id=player.id,
             current_room=room.id,
-            inventory=[],
+            inventory=inventory,
         )
 
         self.store.update_player_state(
             state
         )
+        # -------------------------------------------------
+        # TEMP: Place all discovered entities in current room
+        # -------------------------------------------------
+
+        for parsed in observation.entities:
+
+            if parsed.entity_type == EntityType.ROOM:
+                continue
+
+            entity = self.store.get_entity_by_name(parsed.name)
+
+            if entity is None:
+                continue
+
+            relation = Relation(
+                source_id=entity.id,
+                relation=RelationType.IN,
+                target_id=room.id,
+            )
+
+            if not self.store.relation_exists(relation):
+                self.store.add_relation(relation)
