@@ -1,0 +1,81 @@
+{
+    "entities": [
+        {
+            "id": "entity_1",
+            "name": "laptop",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": false,
+            "confidence": 0.5,
+            "status": "Likely",
+            "bbox": [
+                0.60345458984375,
+                424.3106689453125,
+                156.67535400390625,
+                479.6612548828125
+            ],
+            "first_seen": 322,
+            "last_seen": 322,
+            "missed_frames": 10
+        },
+        {
+            "id": "entity_2",
+            "name": "person",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": true,
+            "confidence": 0.78,
+            "status": "Likely",
+            "bbox": [
+                305.6326599121094,
+                208.72998046875,
+                487.1772155761719,
+                479.35772705078125
+            ],
+            "first_seen": 1,
+            "last_seen": 332,
+            "missed_frames": 0
+        },
+        {
+            "id": "entity_3",
+            "name": "bottle",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": false,
+            "confidence": 0.51,
+            "status": "Likely",
+            "bbox": [
+                531.54150390625,
+                327.26959228515625,
+                567.85693359375,
+                393.3037109375
+            ],
+            "first_seen": 228,
+            "last_seen": 255,
+            "missed_frames": 30
+        }
+    ],
+    "relations": [
+        {
+            "subject": "laptop",
+            "relation": "left_of",
+            "object": "person",
+            "source": "vision"
+        }
+    ],
+    "properties": {},
+    "metadata": {
+        "created": "2026-08-07T11:41:21.399272",
+        "last_updated": "2026-08-07T11:41:34.617262",
+        "next_entity_id": 4,
+        "frame": 332,
+        "timestamp": "2026-08-07T11:41:34.617243",
+        "summary": {
+            "visible_objects": 1,
+            "hidden_objects": 1,
+            "confirmed_objects": 0,
+            "likely_objects": 2,
+            "uncertain_objects": 0
+        }
+    }
+}
