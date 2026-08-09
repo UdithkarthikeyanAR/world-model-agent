@@ -2,21 +2,21 @@
     "entities": [
         {
             "id": "entity_1",
-            "name": "laptop",
+            "name": "backpack",
             "type": "vision_object",
             "source": "vision",
             "visible": false,
-            "confidence": 0.5,
+            "confidence": 0.55,
             "status": "Likely",
             "bbox": [
-                0.60345458984375,
-                424.3106689453125,
-                156.67535400390625,
-                479.6612548828125
+                155.11561584472656,
+                417.56597900390625,
+                260.26678466796875,
+                478.0
             ],
-            "first_seen": 322,
-            "last_seen": 322,
-            "missed_frames": 10
+            "first_seen": 1,
+            "last_seen": 19,
+            "missed_frames": 30
         },
         {
             "id": "entity_2",
@@ -24,57 +24,273 @@
             "type": "vision_object",
             "source": "vision",
             "visible": true,
-            "confidence": 0.78,
+            "confidence": 0.62,
             "status": "Likely",
             "bbox": [
-                305.6326599121094,
-                208.72998046875,
-                487.1772155761719,
-                479.35772705078125
+                807.8218994140625,
+                101.62565612792969,
+                847.8099975585938,
+                212.99476623535156
             ],
-            "first_seen": 1,
-            "last_seen": 332,
+            "first_seen": 26,
+            "last_seen": 862,
             "missed_frames": 0
         },
         {
             "id": "entity_3",
-            "name": "bottle",
+            "name": "chair",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": true,
+            "confidence": 0.65,
+            "status": "Likely",
+            "bbox": [
+                348.2533874511719,
+                207.7868194580078,
+                484.0788269042969,
+                268.4200744628906
+            ],
+            "first_seen": 810,
+            "last_seen": 862,
+            "missed_frames": 0
+        },
+        {
+            "id": "entity_4",
+            "name": "dining table",
             "type": "vision_object",
             "source": "vision",
             "visible": false,
-            "confidence": 0.51,
+            "confidence": 0.56,
             "status": "Likely",
             "bbox": [
-                531.54150390625,
-                327.26959228515625,
-                567.85693359375,
-                393.3037109375
+                29.986051559448242,
+                264.8761291503906,
+                289.5015563964844,
+                473.78900146484375
             ],
-            "first_seen": 228,
-            "last_seen": 255,
+            "first_seen": 552,
+            "last_seen": 611,
+            "missed_frames": 30
+        },
+        {
+            "id": "entity_5",
+            "name": "laptop",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": true,
+            "confidence": 0.64,
+            "status": "Likely",
+            "bbox": [
+                770.3751831054688,
+                211.1957550048828,
+                847.5260620117188,
+                275.3883056640625
+            ],
+            "first_seen": 827,
+            "last_seen": 862,
+            "missed_frames": 0
+        },
+        {
+            "id": "entity_6",
+            "name": "truck",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": false,
+            "confidence": 0.63,
+            "status": "Likely",
+            "bbox": [
+                0.648266613483429,
+                0.1431427001953125,
+                653.565185546875,
+                469.8533935546875
+            ],
+            "first_seen": 109,
+            "last_seen": 118,
+            "missed_frames": 30
+        },
+        {
+            "id": "entity_7",
+            "name": "tv",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": false,
+            "confidence": 0.58,
+            "status": "Likely",
+            "bbox": [
+                0.413900762796402,
+                163.9903106689453,
+                189.68833923339844,
+                356.91632080078125
+            ],
+            "first_seen": 232,
+            "last_seen": 345,
+            "missed_frames": 30
+        },
+        {
+            "id": "entity_8",
+            "name": "cup",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": false,
+            "confidence": 0.56,
+            "status": "Likely",
+            "bbox": [
+                163.66461181640625,
+                430.8494873046875,
+                205.4747772216797,
+                478.0
+            ],
+            "first_seen": 286,
+            "last_seen": 286,
+            "missed_frames": 30
+        },
+        {
+            "id": "entity_9",
+            "name": "bottle",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": true,
+            "confidence": 0.75,
+            "status": "Likely",
+            "bbox": [
+                696.1365356445312,
+                196.10647583007812,
+                735.5968627929688,
+                274.5121154785156
+            ],
+            "first_seen": 692,
+            "last_seen": 862,
+            "missed_frames": 0
+        },
+        {
+            "id": "entity_10",
+            "name": "tie",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": false,
+            "confidence": 0.57,
+            "status": "Likely",
+            "bbox": [
+                0.07649188488721848,
+                187.16848754882812,
+                25.130516052246094,
+                258.76904296875
+            ],
+            "first_seen": 811,
+            "last_seen": 838,
+            "missed_frames": 24
+        },
+        {
+            "id": "entity_11",
+            "name": "keyboard",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": false,
+            "confidence": 0.55,
+            "status": "Likely",
+            "bbox": [
+                0.0,
+                350.2916564941406,
+                77.0400619506836,
+                406.502197265625
+            ],
+            "first_seen": 696,
+            "last_seen": 696,
+            "missed_frames": 30
+        },
+        {
+            "id": "entity_12",
+            "name": "cell phone",
+            "type": "vision_object",
+            "source": "vision",
+            "visible": false,
+            "confidence": 0.54,
+            "status": "Likely",
+            "bbox": [
+                51.05082321166992,
+                291.4478759765625,
+                91.718505859375,
+                352.2240295410156
+            ],
+            "first_seen": 730,
+            "last_seen": 730,
             "missed_frames": 30
         }
     ],
     "relations": [
         {
-            "subject": "laptop",
+            "subject": "bottle",
+            "relation": "right_of",
+            "object": "chair",
+            "source": "vision"
+        },
+        {
+            "subject": "bottle",
+            "relation": "near",
+            "object": "laptop",
+            "source": "vision"
+        },
+        {
+            "subject": "bottle",
+            "relation": "near",
+            "object": "person",
+            "source": "vision"
+        },
+        {
+            "subject": "bottle",
+            "relation": "right_of",
+            "object": "tie",
+            "source": "vision"
+        },
+        {
+            "subject": "chair",
+            "relation": "left_of",
+            "object": "laptop",
+            "source": "vision"
+        },
+        {
+            "subject": "chair",
             "relation": "left_of",
             "object": "person",
+            "source": "vision"
+        },
+        {
+            "subject": "chair",
+            "relation": "right_of",
+            "object": "tie",
+            "source": "vision"
+        },
+        {
+            "subject": "laptop",
+            "relation": "near",
+            "object": "person",
+            "source": "vision"
+        },
+        {
+            "subject": "laptop",
+            "relation": "right_of",
+            "object": "tie",
+            "source": "vision"
+        },
+        {
+            "subject": "person",
+            "relation": "right_of",
+            "object": "tie",
             "source": "vision"
         }
     ],
     "properties": {},
     "metadata": {
-        "created": "2026-08-07T11:41:21.399272",
-        "last_updated": "2026-08-07T11:41:34.617262",
-        "next_entity_id": 4,
-        "frame": 332,
-        "timestamp": "2026-08-07T11:41:34.617243",
+        "created": "2026-08-08T16:37:32.411261",
+        "last_updated": "2026-08-08T16:37:53.629489",
+        "next_entity_id": 13,
+        "frame": 862,
+        "timestamp": "2026-08-08T16:37:53.629456",
         "summary": {
-            "visible_objects": 1,
+            "visible_objects": 4,
             "hidden_objects": 1,
             "confirmed_objects": 0,
-            "likely_objects": 2,
+            "likely_objects": 5,
             "uncertain_objects": 0
         }
     }
